@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+    .hello{
+      @apply text-3xl bg-cyan-300;
+    }
+
+    .container-center{
+        max-width: 800px;
+    }
+
+    .center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-height: 80vh;
+    }
+
+    .container-room{
+        @apply w-24 h-32 mx-4 shadow-lg rounded border-4 border-orange-700;
+
+        &.door{
+            @apply bg-orange-600;
+        }
+
+        &.inside{
+            @apply bg-orange-100;
+        }
+    }
+
+    .buttonSetChangeType {
+        @apply flex px-2;
+
+        button{
+            @apply px-2 w-full py-1 border border-white;
+            &.change{
+                @apply rounded-l-lg;
+                color: black;
+                &.select {
+                    color:rgb(189, 190, 191);
+                }
+            }
+            &.notChange{
+                @apply rounded-r-lg;
+                color: black;
+                &.select {
+                    color:rgb(189, 190, 191);
+                }
+            }
+            &:focus{
+                @apply outline-none;
+            }
+        }
+
+        &.editable{
+            button{
+                @apply border-gray-600;
+                &.change{
+                    color: white;
+                    background: linear-gradient(to left, rgb(139, 140, 141) 50%, transparent 50%);
+                    background-size: 200% 100%;
+                    background-position: right bottom;
+                    transition: all .5s ease-out;
+                    &.select {
+                        color:rgb(139, 140, 141);
+                        background-position: left bottom;
+                    }
+                }
+                &.notChange{
+                    color: white;
+                    background: linear-gradient(to right, rgb(139, 140, 141) 50%, transparent 50%);
+                    background-size: 200% 100%;
+                    background-position: left bottom;
+                    transition: all .5s ease-out;
+                    &.select {
+                        color:rgb(139, 140, 141);
+                        background-position: right bottom;
+                    }
+                }
+                &:hover{
+                    @apply bg-gray-200 dark:bg-gray-300;
+                }
+            }
+        }
+        
+    }
+}
