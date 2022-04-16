@@ -30,6 +30,13 @@
         &.inside{
             @apply bg-orange-100;
         }
+
+        &.userSel {
+            @apply ring-4 ring-blue-400;
+        }
+        &.hostSel {
+            @apply ring-4 ring-green-400;
+        }
     }
 
     .buttonSetChangeType {
