@@ -88,6 +88,13 @@ export default () => {
         setResultToLocalStorage(STORAGE_RESULT.LS_RESULTS_NOT_CHANGED, resultsNotChanged)
     }
 
+    const resetResults = () => {
+        removeResultFromLocalStorage()
+
+        setResultsChanged([])
+        setResultsNotChanged([])
+    }
+ 
     return (
         <div className="center flex flex-col items-center shadow-lg shadow-blue-600 border p-4">
             <GameLogo />
@@ -103,7 +110,7 @@ export default () => {
                 <div className="mb-4">
                     <button
                         className="px-4 py-2 mx-2 bg-gray-400 rounded-full"
-                        onClick={()=>{removeResultFromLocalStorage()}}>
+                        onClick={()=>{resetResults()}}>
                         결과 초기화
                     </button>
                     <button
