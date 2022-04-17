@@ -1,6 +1,6 @@
 import React, {useState, useEffect, Dispatch, SetStateAction} from 'react';
 import Room from "./Room"
-import { ROOM_TYPE } from '../../types/game/ParameterGame';
+import { GAME_TYPE, ROOM_TYPE } from '../../types/game/ParameterGame';
 import { GameRoom, IRoom } from '../../types/game/GameType';
 
 const ROOM_COUNT:number = 3
@@ -99,8 +99,8 @@ const isSuccess = (roomStates: IRoom[], selIndex:number):boolean => {
     return isSuccess
 }
 
-export default ({isGameStart,typeChange,throwGameError,setGameResult}:{isGameStart:boolean,typeChange:boolean,throwGameError:any,setGameResult:Dispatch<SetStateAction<boolean>>}) => {
-    console.log("GameStage", typeChange)
+export default ({gameState,typeChange,throwGameError,setGameResult,setGameState}:
+    {gameState:GAME_TYPE,typeChange:boolean,throwGameError:any,setGameResult:Dispatch<SetStateAction<boolean>>,setGameState:Dispatch<SetStateAction<GAME_TYPE>>}) => {
 
     // 게임의 메세지.
     const [gameMessage, setGameMessage] = useState<string>("안녕하세요")
@@ -116,16 +116,18 @@ export default ({isGameStart,typeChange,throwGameError,setGameResult}:{isGameSta
 
     // 현재 방을 열수 있는 상태인지 저장한다.
     const [isEnableOpen, setIsEnableOpen] = useState<boolean>(false)
+    console.log("GameStage", gameState.toString(), roomStates)
 
     useEffect(()=>{
-        if (isGameStart) {
+        if (gameState === GAME_TYPE.RUNNING) {
+            setRoomStates(getDefaultRooms())
             gameStart()
+            setGameSeqIndex(0)
         } else {
             gameStop()
         }
 
-        setGameSeqIndex(0)
-    },[isGameStart])
+    },[gameState])
 
     useEffect(() => {
         // 사용자는 방 하나를 선택한다.
@@ -193,6 +195,7 @@ export default ({isGameStart,typeChange,throwGameError,setGameResult}:{isGameSta
         else if (gameSeqIndex === 2) {
             setTimeout(() => {
                 setRoomOpen(userPickRoom, true)
+                console.log(userPickRoom, roomStates)
                 if (isSuccess(roomStates, userPickRoom)) {
                     setGameMessage(MSG_GAME_SEQ_2_0)
                     setGameResult(true)
@@ -200,6 +203,8 @@ export default ({isGameStart,typeChange,throwGameError,setGameResult}:{isGameSta
                     setGameMessage(MSG_GAME_SEQ_2_1)
                     setGameResult(false)
                 }
+
+                setGameState(GAME_TYPE.FINISH)
             }, DELAY_SHOW_RESULT)
         }
     }, [gameSeqIndex])
@@ -213,11 +218,10 @@ export default ({isGameStart,typeChange,throwGameError,setGameResult}:{isGameSta
     }
 
     const gameStop = () => {
-        setRoomStates(getDefaultRooms())
     }
     
     const setRoomOpen = (index: number, isOpen: boolean) => {
-        if (isGameStart) 
+        if (gameState === GAME_TYPE.RUNNING) 
         {
             let changeStates:IRoom[] = [...roomStates]
 
@@ -231,7 +235,7 @@ export default ({isGameStart,typeChange,throwGameError,setGameResult}:{isGameSta
     }
 
     const setRoomSelByUser = (index: number, isSel: boolean) => {
-        if (isGameStart) 
+        if (gameState === GAME_TYPE.RUNNING) 
         {
             let changeStates:IRoom[] = [...roomStates]
 
@@ -245,7 +249,7 @@ export default ({isGameStart,typeChange,throwGameError,setGameResult}:{isGameSta
     }
 
     const setRoomSelByHost = (index: number, isSel: boolean) => {
-        if (isGameStart) 
+        if (gameState === GAME_TYPE.RUNNING) 
         {
             let changeStates:IRoom[] = [...roomStates]
 
@@ -259,7 +263,7 @@ export default ({isGameStart,typeChange,throwGameError,setGameResult}:{isGameSta
     }
 
     const roomClickAction = (index: number) => {
-        if (isGameStart &&
+        if (gameState === GAME_TYPE.RUNNING &&
             isEnableOpen &&
             !roomStates[index].isOpen &&
             gameSeqIndex === 0) 
@@ -284,7 +288,7 @@ export default ({isGameStart,typeChange,throwGameError,setGameResult}:{isGameSta
                 {roomStates.map((roomState, index) => renderRooms(index))}
             </div>
             <div className="flex my-4 justify-center">
-                <span className="font-semibold text-2xl">{isGameStart ? gameMessage : ""}</span>
+                <span className="font-semibold text-2xl">{gameState ? gameMessage : ""}</span>
             </div>
         </div>
     );

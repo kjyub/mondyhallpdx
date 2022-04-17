@@ -1,20 +1,21 @@
 import React, {useState ,Dispatch, SetStateAction} from 'react';
+import { GAME_TYPE } from '../../types/game/ParameterGame';
 
-export default ({isGameStart,typeChange,setTypeChange}:{isGameStart:boolean, typeChange:boolean, setTypeChange:Dispatch<SetStateAction<boolean>>}) => {
-
+export default ({gameState,typeChange,setTypeChange}:{gameState:GAME_TYPE, typeChange:boolean, setTypeChange:Dispatch<SetStateAction<boolean>>}) => {
+    const enable:boolean = gameState === GAME_TYPE.RUNNING
 
     return (
         <div className={`flex flex-col`}>
-            <div className={`buttonSetChangeType w-72 ${isGameStart !== true && "editable"}`}>
+            <div className={`buttonSetChangeType w-72 ${!enable && "editable"}`}>
                 <button
-                    disabled={isGameStart}
+                    disabled={enable}
                     className={`change ${typeChange !== true && "select"}`} 
                     onClick={()=>{setTypeChange(true)}}
                 >
                     바꾼다
                 </button>
                 <button 
-                    disabled={isGameStart}
+                    disabled={enable}
                     className={`notChange ${typeChange !== false && "select"}`} 
                     onClick={()=>{setTypeChange(false)}}
                 >
