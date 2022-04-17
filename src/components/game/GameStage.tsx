@@ -5,9 +5,9 @@ import { GameRoom, IRoom } from '../../types/game/GameType';
 
 const ROOM_COUNT:number = 3
 
-const DELAY_HOST_OPEN: number = 2000
+const DELAY_HOST_OPEN: number = 1500
 const DELAY_CHANGE_SEL: number = 1000
-const DELAY_SHOW_RESULT: number = 1000
+const DELAY_SHOW_RESULT: number = 1500
 
 const MSG_GAME_SEQ_0_0 = "3개의 방 중 차가 들어있을것 같은 방을 고르세요"
 const MSG_GAME_SEQ_1_0 = "사회자가 염소가 들어있는 방의 문을 엽니다"
