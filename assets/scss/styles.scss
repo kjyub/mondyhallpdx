@@ -32,10 +32,10 @@
         }
 
         &.userSel {
-            @apply ring-4 ring-blue-400;
+            @apply ring-4 ring-blue-400 shadow-blue-400;
         }
         &.hostSel {
-            @apply ring-4 ring-green-400;
+            @apply ring-4 ring-green-400 shadow-green-400;
         }
     }
 

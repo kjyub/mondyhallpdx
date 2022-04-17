@@ -38,7 +38,7 @@ export default () => {
             <GameSet gameState={gameState} typeChange={typeChange} setTypeChange={setTypeChange} />
             <GameStage gameState={gameState} typeChange={typeChange} throwGameError={throwGameError} setGameResult={setGameResult} setGameState={setGameState} />
             <button 
-                className="px-4 py-2 my-4 bg-green-400 font-semibold"
+                className={`px-4 py-2 my-4 ${gameState === GAME_TYPE.RUNNING ? "bg-red-400": "bg-green-400"} font-semibold`}
                 onClick={()=>{gameState === GAME_TYPE.RUNNING ? setGameState(GAME_TYPE.READY) : setGameState(GAME_TYPE.RUNNING)}}>
                 {gameState === GAME_TYPE.RUNNING ? "종료": "시작"}
             </button>
