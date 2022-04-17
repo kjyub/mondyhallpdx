@@ -6,6 +6,9 @@ export default ({gameState,typeChange,setTypeChange}:{gameState:GAME_TYPE, typeC
 
     return (
         <div className={`flex flex-col`}>
+            <div className="flex justify-center my-2">
+                <span>처음 선택을 바꾸겠습니까?</span>
+            </div>
             <div className={`buttonSetChangeType w-72 ${!enable && "editable"}`}>
                 <button
                     disabled={enable}
