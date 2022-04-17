@@ -23,7 +23,7 @@ const resultPanel = (results:boolean[], title: string) => {
     let resultPercent: string = results.length > 0 ? `${((successCount/results.length)*100).toFixed(2)}%` : "0%"
 
     return (
-        <div className="flex flex-col items-center p-4 bg-gray-100 rounded-lg mx-2">
+        <div className="flex flex-col items-center p-4 bg-gray-200 rounded-lg mx-2">
             <div className="flex flex-col p-4 border-b border-gray-500">
                 <span className="text-center text-semibold text-xl text-gray-600">{title}</span>
                 <span className="text-right text-gray-600 text-sm">{resultPercent}</span>
